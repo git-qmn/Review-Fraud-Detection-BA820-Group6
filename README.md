@@ -19,11 +19,7 @@ The datasets were merged on `gmap_id`. Missing values were dropped or filled, an
 ```bash
 git clone https://github.com/git-qmn/Review-Fraud-Detection-BA820-Group6.git
 ```
-2. Install dependencies:
-```bash
-pip install -r requirements.txt
-```
-3. Run the Jupyter Notebook:
+2. Run the Jupyter Notebook:
 ```bash
 jupyter notebook
 ```
