@@ -50,9 +50,6 @@ Each member contributed equally across Milestones 1 & 2:
 - **Phunsok**: Isolation Forest tuning, LDA, dataset merging
 - **Quan**: LDA optimization, cosine similarity, Isolation Forest scoring
 
-## License
-This project is licensed under the MIT License.
-
 ## Contact
 For questions or suggestions, reach out via email at [qmn@bu.edu](mailto:qmn@bu.edu).
 
