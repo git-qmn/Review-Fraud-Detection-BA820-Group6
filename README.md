@@ -17,7 +17,7 @@ The datasets were merged on `gmap_id`. Missing values were dropped or filled, an
 ## Installation
 1. Clone the repository:
 ```bash
-git clone https://github.com/yycyy0722/BA820-Group6.git
+git clone https://github.com/git-qmn/Review-Fraud-Detection-BA820-Group6.git
 ```
 2. Install dependencies:
 ```bash
