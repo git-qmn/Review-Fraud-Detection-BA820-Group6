@@ -1,54 +1,119 @@
-# Analyzing Business Integrity and Consumer Trends
+# Assette MSBA Capstone – Snowflake Data Pipeline
 
 ## Overview
-This project investigates the presence of fraudulent reviews and suspicious business activity in the digital marketplace using unsupervised machine learning. By analyzing a large-scale review dataset (10M+ records) alongside business metadata, the goal is to detect manipulated ratings and fake reviews. Techniques such as Isolation Forest, K-Means, DBSCAN, and LDA are used to segment businesses, detect anomalies, and identify suspicious text patterns.
 
-## Course Information
-- **Course**: BA820 - Unsupervised Machine Learning, Boston University  
-- **Team Members**: Quan Nguyen, Ruoxian Zhang, Yiyou Chen, Phunsok Norboo
+This project is part of the BU Questrom MSBA Capstone Project 2025 in collaboration with Assette LLC, a SaaS provider to the institutional investment management industry. The goal is to create a fully functional “model client” dataset simulating a large, diversified asset manager's operations.
 
-## Dataset
-We used two datasets from the UC San Diego McAuley Lab:
-- **Review Dataset**: Over 10.4 million records, including ratings, review text, and business responses.
-- **Metadata Dataset**: Contains business attributes like categories, location, and review counts.
+The project implements an automated data pipeline to populate a Snowflake database with synthetic and freely available data across multiple domains: performance, holdings, benchmarks, currencies, attributes, and qualitative disclosures. Data is ingested from APIs (Yahoo Finance, Alpha Vantage, Polygon.io), generated synthetically, validated for quality, and inserted into Snowflake using structured, modular Python scripts.
 
-The datasets were merged on `gmap_id`. Missing values were dropped or filled, and both numerical and textual data were cleaned, standardized, and transformed for modeling.
+This system enables realistic simulations for sales demos, QA testing, and R\&D without using proprietary client data.
 
-## Installation
-1. Clone the repository:
-```bash
-git clone https://github.com/git-qmn/Review-Fraud-Detection-BA820-Group6.git
-```
-2. Run the Jupyter Notebook:
-```bash
-jupyter notebook
-```
+---
 
-## Usage
-- Open the notebook(s) and execute each cell sequentially.
-- Modify parameters in model sections to explore different clusterings or anomaly detection results.
+## Key Features
 
-## Methodology
-- **K-Means Clustering**: Used to segment businesses and detect abnormal patterns (k=3 selected).
-- **DBSCAN**: Spatial clustering based on reprojected coordinates and fine-tuned parameters.
-- **LDA (Topic Modeling)**: Used stratified sampling, coherence scoring, and cosine similarity to uncover themes in reviews and responses.
-- **Isolation Forest**: Applied for anomaly detection, including text-based similarity to detect repetitive/fake reviews.
+* Multi-source data ingestion: Alpha Vantage, Polygon.io, Yahoo Finance, OpenAI
+* Synthetic data generation for performance, holdings, and qualitative content
+* Automated data validation and duplicate prevention
+* Configurable environment variables for Snowflake and API keys
+* Modular table creation and insertion scripts
 
-## Challenges
-- High RAM usage required data sampling (1M–2M rows).
-- Computational inefficiency of text similarity and LDA led to technique changes (e.g., Gensim → Scikit-Learn).
-- False positives from franchises with naturally similar reviews.
+---
 
 ## Contribution
-Each member contributed equally across Milestones 1 & 2:
-- **Yiyou**: HDBSCAN, K-Means rework, DBSCAN tuning
-- **Ruoxian**: K-Means, preprocessing, DBSCAN refinement
-- **Phunsok**: Isolation Forest tuning, LDA, dataset merging
-- **Quan**: LDA optimization, cosine similarity, Isolation Forest scoring
+
+Quan Nguyen
+Victoria Carlsten
+
+---
+
+## Quick Start
+
+### 1. Clone the repository
+
+```bash
+git clone <repo-url>
+cd <repo-directory>
+```
+
+### 2. Create and activate a virtual environment
+
+**Windows**
+
+```bash
+python -m venv venv
+venv\Scripts\activate
+```
+
+**Mac/Linux**
+
+```bash
+python3 -m venv venv
+source venv/bin/activate
+```
+
+### 3. Install dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+### 4. Create your `.env` file (copy from `.env.example`)
+
+```bash
+cp .env.example .env
+```
+
+Add Snowflake credentials and API keys to `.env`.
+
+### 5. Create required Snowflake tables
+
+Run each `create_*.py` file to create schema.
+
+### 6. Insert and generate data
+
+Example:
+
+```bash
+python insert_generate_data/generate_insert_benchmark_general_info.py
+python insert_generate_data/pull_insert_foreign_benchmark_performance.py
+```
+
+### 7. Verify in Snowflake
+
+```sql
+SELECT * FROM BENCHMARKPERFORMANCE LIMIT 10;
+```
+
+---
+
+## Validation & Quality Control
+
+* Checks for missing or invalid data
+* Removes duplicates
+* Converts dates to Snowflake-compatible formats
+* Skips inserting rows that already exist
+
+---
 
 ## Contact
-For questions or suggestions, reach out via email at [qmn@bu.edu](mailto:qmn@bu.edu).
 
-## GitHub Repository
-[GitHub - BA820-Group6](https://github.com/yycyy0722/BA820-Group6/tree/main)
+For questions or suggestions, contact:
 
+* Quan Minh Nguyen – [qmn@bu.edu](mailto:qmn@bu.edu)
+* Victoria Carlsten – [carlsten@bu.edu](mailto:carlsten@bu.edu)
+
+---
+
+## Data Sources
+
+* Yahoo Finance
+* Alpha Vantage
+* Polygon.io
+* OpenAI API
+
+---
+
+## License
+
+This project is for educational purposes under the BU Questrom MSBA program.
